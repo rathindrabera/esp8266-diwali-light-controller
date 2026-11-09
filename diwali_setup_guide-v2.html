@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diwali Smart Light Show - Setup & Wiring Guide</title>
+<style>
+  :root {
+    --bg-deep: #14051e;
+    --bg-card: #260b38;
+    --gold: #ffd166;
+    --saffron: #ff7b00;
+    --crimson: #e63946;
+    --text-light: #fefae0;
+    --teal: #06d6a0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at top, #3b0d54 0%, var(--bg-deep) 80%);
+    color: var(--text-light);
+    line-height: 1.6;
+    padding: 20px 15px 50px;
+  }
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .hero {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(255,123,0,0.2), rgba(230,57,70,0.25));
+    border: 2px solid var(--gold);
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(255, 209, 102, 0.25);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+  .diya-icon {
+    font-size: 46px;
+    display: inline-block;
+    animation: glow 2s infinite alternate;
+  }
+  @keyframes glow {
+    from { filter: drop-shadow(0 0 6px #ff7b00); transform: translateY(0px); }
+    to { filter: drop-shadow(0 0 18px #ffd166); transform: translateY(-3px); }
+  }
+  h1 {
+    color: var(--gold);
+    margin: 10px 0 6px;
+    font-size: 28px;
+    text-shadow: 0 2px 10px rgba(255, 123, 0, 0.5);
+  }
+  .subtitle {
+    color: #f4a261;
+    font-size: 16px;
+    margin: 0 0 15px;
+  }
+  .nav-bar {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #14051e;
+    background: linear-gradient(90deg, var(--gold), var(--saffron));
+    box-shadow: 0 4px 12px rgba(255, 123, 0, 0.4);
+    transition: transform 0.2s;
+  }
+  .btn:hover { transform: scale(1.03); }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 209, 102, 0.35);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  }
+  h2 {
+    color: var(--gold);
+    border-bottom: 1px solid rgba(255, 209, 102, 0.3);
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 20px;
+  }
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 12px;
+  }
+  .badge {
+    background: rgba(255,255,255,0.06);
+    border-left: 4px solid var(--saffron);
+    padding: 12px;
+    border-radius: 8px;
+  }
+  .badge strong { color: var(--gold); display: block; font-size: 15px; }
+  .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .step-list li {
+    background: rgba(20, 5, 30, 0.6);
+    border: 1px solid rgba(255, 209, 102, 0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .step-num {
+    display: inline-block;
+    background: var(--saffron);
+    color: #000;
+    font-weight: bold;
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-size: 13px;
+    margin-right: 8px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 209, 102, 0.25);
+    text-align: left;
+  }
+  th {
+    background: rgba(255, 123, 0, 0.25);
+    color: var(--gold);
+  }
+  code {
+    background: rgba(0,0,0,0.45);
+    color: var(--teal);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-family: monospace;
+  }
+  .safety {
+    background: rgba(230, 57, 70, 0.2);
+    border: 1px solid var(--crimson);
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 12px;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: #ccc;
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 209, 102, 0.25);
+  }
+  .footer a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+    color: var(--saffron);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="diya-icon">🪔 ✨ 🎆</div>
+    <h1>Subhavali Smart Diwali Light Controller</h1>
+    <p class="subtitle">ESP8266 + 4-Channel Relay + 20 Vertical LED String Curtain (12V DC)</p>
+    <div class="nav-bar">
+      <a class="btn" href="http://diwali.local/">🎛️ Open Live Controller (Login Required)</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📦 1. What You Need</h2>
+    <div class="badge-grid">
+      <div class="badge"><strong>NodeMCU ESP8266</strong>Wi-Fi Microcontroller brain running the web server & mDNS.</div>
+      <div class="badge"><strong>4-Channel 5V Relay</strong>Optocoupler isolated module switching 12V DC / 220V AC up to 10A/ch.</div>
+      <div class="badge"><strong>20 LED String Lights</strong>Divided into 4 groups of 5 strings each for animated patterns.</div>
+      <div class="badge"><strong>5V & 12V Power Supplies</strong>5V powers NodeMCU & Relay coils; 12V powers the LED strings.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔌 2. Pinout & Wiring Table</h2>
+    <p>Wire the low-voltage 5V control side between the ESP8266 and the 4-Channel Relay module first, then wire the 12V DC light strings:</p>
+    <table>
+      <tr><th>ESP8266 / Power</th><th>Relay Pin</th><th>Purpose</th></tr>
+      <tr><td><code>5V Supply (+5V & GND)</code></td><td><code>VCC & GND</code></td><td>5V power for NodeMCU (<code>VIN/VU</code>) & relay coils</td></tr>
+      <tr><td><code>D1 (GPIO 5)</code></td><td><code>IN1</code></td><td>Controls Channel 1 (Strings 1, 5, 9, 13, 17)</td></tr>
+      <tr><td><code>D2 (GPIO 4)</code></td><td><code>IN2</code></td><td>Controls Channel 2 (Strings 2, 6, 10, 14, 18)</td></tr>
+      <tr><td><code>D5 (GPIO 14)</code></td><td><code>IN3</code></td><td>Controls Channel 3 (Strings 3, 7, 11, 15, 19)</td></tr>
+      <tr><td><code>D6 (GPIO 12)</code></td><td><code>IN4</code></td><td>Controls Channel 4 (Strings 4, 8, 12, 16, 20)</td></tr>
+      <tr><td><code>12V DC Supply (+12V)</code></td><td><code>COM1, COM2, COM3, COM4</code></td><td>Daisy-chain +12V into all 4 Middle Screws</td></tr>
+      <tr><td><code>Light Bundles 1-4 (+)</code></td><td><code>NO1, NO2, NO3, NO4</code></td><td>Each 5-string bundle's Positive (+) goes to Right Screw</td></tr>
+      <tr><td><code>12V DC Supply (-)</code></td><td><code>All 4 Light Bundles (-)</code></td><td>Shared Negative (-) return wire for all 20 LED strings</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🪜 3. Step-by-Step Setup Guide</h2>
+    <ul class="step-list">
+      <li><span class="step-num">Step 1</span><strong>Hang the 20 Vertical Strings (Interleaved Layout):</strong> Hang all 20 strings vertically along your balcony. Connect every 4th string in parallel: Bundle 1 = <code>#1, #5, #9, #13, #17</code>; Bundle 2 = <code>#2, #6, #10, #14, #18</code>; Bundle 3 = <code>#3, #7, #11, #15, #19</code>; Bundle 4 = <code>#4, #8, #12, #16, #20</code>.</li>
+      <li><span class="step-num">Step 2</span><strong>Open the Web Dashboard:</strong> Connect your phone to the same Wi-Fi network and visit <code>http://diwali.local</code>. Anyone can view this Setup Guide at <code>http://diwali.local/guide</code> without logging in!</li>
+      <li><span class="step-num">Step 3</span><strong>Control Modes & Wireless OTA Updates:</strong> Tap <strong>Control Dashboard</strong> and log in (default: <code>admin</code> / <code>diwali2026</code>) to preview patterns on the live 20-string visualizer, change Wi-Fi/security credentials at <code>/settings</code>, or upload firmware updates wirelessly at <code>/update</code>.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🎆 4. Included Vertical Curtain Patterns</h2>
+    <table>
+      <tr><th>#</th><th>Pattern Name</th><th>Visual Effect on Your Balcony</th></tr>
+      <tr><td>1</td><td>Single Running Wave</td><td>Bright vertical column ripples smoothly across the wall.</td></tr>
+      <tr><td>2</td><td>Inverted Dark Wave</td><td>75% of lights stay glowing while a shadow gap glides across.</td></tr>
+      <tr><td>3</td><td>Knight Rider Ping-Pong</td><td>Waves bounce left-to-right and right-to-left continuously.</td></tr>
+      <tr><td>4</td><td>Theatre Curtain</td><td>Lights bloom outward from the center strands to the edges.</td></tr>
+      <tr><td>5</td><td>Rolling Thick Ribbon</td><td>Two channels stay ON together for a thick sweeping wave.</td></tr>
+      <tr><td>6</td><td>Curtain Fill & Wipe</td><td>Progressively lights up the whole balcony, then wipes clean.</td></tr>
+      <tr><td>7</td><td>Odd / Even Dance</td><td>Every alternate vertical string swaps back and forth.</td></tr>
+      <tr><td>8</td><td>Random Sparkle</td><td>Organic shimmering waterfall effect.</td></tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    <div>🪔 Wishing You & Your Family a Bright, Safe & Happy Diwali! 🪔</div>
+    <div style="margin-top:6px;">&copy; 2026 &bull; Created with ❤️ by <a href="https://github.com/rathindrabera" target="_blank" rel="noopener noreferrer">Rathindra Bera</a></div>
+  </div>
+</div>
+</body>
+</html>
