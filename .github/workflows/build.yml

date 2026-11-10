@@ -1,0 +1,23 @@
+name: Build ESP8266 Firmware
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile Sketch to BIN
+        uses: arduino/compile-sketches@v1
+        with:
+          sketch-paths: |
+            - diwali_light_controller_v7
+          fqbn: esp8266:esp8266:nodemcuv2
+          platforms: |
+            - name: esp8266:esp8266
+              source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          enable-deltas: false
+      - name: Upload Compiled BIN
+        uses: actions/upload-artifact@v4
+        with:
+          name: diwali-firmware-bin
+          path: "**/*.bin"
