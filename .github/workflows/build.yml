@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Compile Sketch to BIN
+      - name: Compile Sketch and Export Binary
         uses: arduino/compile-sketches@v1
         with:
           sketch-paths: |
@@ -16,13 +16,11 @@ jobs:
             - name: esp8266:esp8266
               source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
           enable-deltas: false
-      - name: Copy BIN to Root
-        run: |
-          find . -name "*.ino.bin" -o -name "diwali_light_controller_v7.cpp.bin" -exec cp {} ./firmware.bin \;
-          ls -la firmware.bin
+          output-dir: ./build
+      - name: Verify Binary Exists
+        run: ls -la ./build
       - name: Upload Compiled BIN
         uses: actions/upload-artifact@v4
         with:
           name: diwali-firmware-bin
-          path: firmware.bin
-          
+          path: ./build/*.bin
